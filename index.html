@@ -1,148 +1,67 @@
+
 <!DOCTYPE html>
-<html lang="en" id="mainHtml" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTINEIX PRO | Live Whale & Gems Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>SahrawyCrypto Live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #1a73e8; --bg: #f8fafc; --dark: #0f172a; --gold: #f59e0b; --up: #10b981; --down: #ef4444; }
-        body { background: var(--bg); color: var(--dark); font-family: 'Inter', sans-serif; margin: 0; padding-top: 45px; overflow-x: hidden; }
-        
-        /* 1. شريط الأخبار العلوي */
-        .news-ticker { background: #000; color: #fff; height: 45px; line-height: 45px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: 10000; border-bottom: 3px solid var(--gold); }
-        .ticker-track { display: inline-block; white-space: nowrap; animation: scrollTicker 30s linear infinite; }
-        .ticker-item { display: inline-block; margin: 0 40px; font-weight: 800; font-size: 13px; }
-
-        /* 2. نظام الإشعارات المنبثقة (Toast) */
-        #notif-container { position: fixed; bottom: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
-        [dir="rtl"] #notif-container { right: auto; left: 20px; }
-        .toast { background: var(--dark); color: #fff; padding: 15px 20px; border-radius: 12px; border-left: 5px solid var(--gold); box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideIn 0.5s ease; min-width: 250px; font-size: 0.85rem; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        [dir="rtl"] @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-        /* الهيدر والجداول */
-        .nav { background: #fff; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
-        .logo { font-weight: 900; font-size: 1.3rem; text-transform: uppercase; }
-        .logo span { color: var(--primary); }
-        .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 300px 1fr; gap: 25px; }
-        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
-        .card { background: #fff; border-radius: 18px; padding: 20px; border: 1px solid #e2e8f0; margin-bottom: 25px; }
-        .main-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; }
-        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
-        .scroll-box { max-height: 450px; overflow-y: auto; margin-top: 15px; border: 1px solid #f1f5f9; border-radius: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { padding: 12px; background: #f8fafc; position: sticky; top: 0; z-index: 10; font-size: 0.65rem; text-transform: uppercase; }
-        td { padding: 14px; border-bottom: 1px solid #f1f5f9; text-align: center; font-weight: 700; }
-        .up { color: var(--up); } .down { color: var(--down); }
-        .wallet-tag { background: #eef2ff; color: var(--primary); padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; }
-
-        /* الروابط الجانبية */
-        .aff-link { display: block; text-decoration: none; padding: 14px; border-radius: 12px; margin-bottom: 12px; text-align: center; font-weight: 800; font-size: 0.8rem; border-bottom: 4px solid rgba(0,0,0,0.1); }
-        .bn { background: #F3BA2F; color: #000; }
-        .mx { background: #00a7e1; color: #fff; }
-        
-        .footer { background: var(--dark); color: #fff; padding: 40px; text-align: center; margin-top: 50px; border-top: 6px solid var(--gold); }
-        .tg-btn { display: inline-block; background: #0088cc; color: #fff; text-decoration: none; padding: 12px 30px; border-radius: 35px; font-weight: bold; margin-top: 15px; }
-        @keyframes scrollTicker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; background-color: #0b0f1a; color: white; }
+        .crypto-card { background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid rgba(255,255,255,0.05); }
+        .price-up { color: #10b981; }
+        .price-down { color: #ef4444; }
     </style>
 </head>
-<body onload="startApp()">
-
-<div id="notif-container"></div> <div class="news-ticker">
-    <div class="ticker-track" id="ticker-wrap"></div>
-</div>
-
-<nav class="nav">
-    <div class="logo">SENTINEIX <span>PRO</span></div>
-    <button style="cursor:pointer" onclick="toggleLang()" id="langBtn">العربية</button>
-</nav>
-
-<div class="container">
-    <aside>
-        <div class="card">
-            <h4>Official Partners</h4>
-            <a href="https://www.binance.com/..." class="aff-link bn">BINANCE VIP</a>
-            <a href="https://promote.mexc.com/..." class="aff-link mx">MEXC GLOBAL</a>
-            <div style="margin-top:20px; height:100px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; font-size:10px;">ADS SPACE</div>
-        </div>
-    </aside>
-
-    <main>
-        <div class="main-grid">
-            <div class="card">
-                <b id="tRadar">Whale Tracking 🐋</b>
-                <div class="scroll-box"><table><thead id="h1"></thead><tbody id="b1"></tbody></table></div>
+<body class="min-h-screen p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center mb-12 border-b border-gray-800 pb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-blue-500">SahrawyCrypto <span class="text-white text-xs">LIVE</span></h1>
+                <p class="text-gray-400 text-sm">تحديث حي لأسعار السوق</p>
             </div>
-            <div class="card">
-                <b id="tMarket">Market Feed ⚡</b>
-                <div class="scroll-box"><table><thead id="h2"></thead><tbody id="b2"></tbody></table></div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="crypto-container">
+            <div class="crypto-card p-6 rounded-2xl shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <i class="fab fa-bitcoin text-4xl text-orange-500"></i>
+                    <span id="btc-change" class="font-bold">--%</span>
+                </div>
+                <h3 class="text-gray-400">Bitcoin (بيتكوين)</h3>
+                <div id="btc-price" class="text-3xl font-bold mt-2 font-mono text-white">جاري التحميل...</div>
+            </div>
+
+            <div class="crypto-card p-6 rounded-2xl shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <i class="fab fa-ethereum text-4xl text-blue-400"></i>
+                    <span id="eth-change" class="font-bold">--%</span>
+                </div>
+                <h3 class="text-gray-400">Ethereum (إيثيريوم)</h3>
+                <div id="eth-price" class="text-3xl font-bold mt-2 font-mono text-white">جاري التحميل...</div>
             </div>
         </div>
-    </main>
-</div>
+    </div>
 
-<footer class="footer">
-    <h3 id="fContact">اتصل بنا / Contact</h3>
-    <a href="https://t.me/saidahmed28" class="tg-btn">Telegram: @saidahmed28</a>
-</footer>
+    <script>
+        async function fetchPrices() {
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+                const data = await res.json();
+                
+                document.getElementById('btc-price').innerText = '$' + data.bitcoin.usd.toLocaleString();
+                document.getElementById('btc-change').innerText = data.bitcoin.usd_24h_change.toFixed(2) + '%';
+                document.getElementById('btc-change').className = data.bitcoin.usd_24h_change >= 0 ? 'price-up' : 'price-down';
 
-<script>
-    var cur = 'en';
-    const ui = {
-        en: { lang:'العربية', radar:'Whale Radar 🐋', market:'Market (5000+) ⚡', h1:'<tr><th>COIN</th><th>VALUE</th><th>TYPE</th><th>WALLET</th></tr>', h2:'<tr><th>COIN</th><th>PRICE</th><th>MOVE</th></tr>', alert:'WHALE ALERT:', news:['$2M BTC moved', 'Scanning 5,240 Assets...', 'New listing on MEXC'] },
-        ar: { lang:'English', radar:'رادار الحيتان 🐋', market:'بث العملات ⚡', h1:'<tr><th>العملة</th><th>المبلغ</th><th>النوع</th><th>المحفظة</th></tr>', h2:'<tr><th>العملة</th><th>السعر</th><th>الحركة</th></tr>', alert:'تنبيه حوت:', news:['نقل 2 مليون دولار بيتكوين', 'يتم فحص 5240 عملة', 'إدراج جديد في MEXC'] }
-    };
-
-    function startApp() { updateUI(); setInterval(engine, 1000); }
-
-    function updateUI() {
-        const d = ui[cur];
-        document.getElementById('mainHtml').dir = (cur=='ar'?'rtl':'ltr');
-        document.getElementById('langBtn').innerText = d.lang;
-        document.getElementById('tRadar').innerText = d.radar;
-        document.getElementById('tMarket').innerText = d.market;
-        document.getElementById('h1').innerHTML = d.h1;
-        document.getElementById('h2').innerHTML = d.h2;
-        let nH = ''; d.news.forEach(n => nH += `<span class="ticker-item">🔥 ${n}</span>`);
-        document.getElementById('ticker-wrap').innerHTML = nH;
-    }
-
-    function toggleLang() { cur = (cur=='en'?'ar':'en'); updateUI(); }
-
-    function engine() {
-        const coins = ['BTC','ETH','SOL','BNB','PEPE','SHIB','LINK','TIA'];
-        const symbol = Math.random() > 0.6 ? coins[Math.floor(Math.random()*coins.length)] : (Math.random().toString(36).substring(7).toUpperCase());
-        const val = Math.floor(Math.random()*900000) + 1000;
-        const buy = Math.random() > 0.45;
-        const color = buy ? 'up' : 'down';
-        const typeTxt = buy ? (cur=='ar'?'شراء':'BUY') : (cur=='ar'?'بيع':'SELL');
-
-        const row = `<td><b>${symbol}</b></td><td>$${val.toLocaleString()}</td><td class="${color}">${typeTxt}</td>`;
-
-        // تحديث الجداول
-        const b2 = document.getElementById('body2'); // تصحيح معرف الجدول
-        document.getElementById('b2').insertRow(0).innerHTML = row;
-        if(document.getElementById('b2').rows.length > 15) document.getElementById('b2').deleteRow(15);
-
-        if(val > 450000) {
-            let w = '0x' + Math.random().toString(16).slice(2,6).toUpperCase();
-            document.getElementById('b1').insertRow(0).innerHTML = row + `<td><span class="wallet-tag">Whale_${w}</span></td>`;
-            if(document.getElementById('b1').rows.length > 15) document.getElementById('b1').deleteRow(15);
-            
-            // إظهار الإشعار المنبثق
-            showToast(symbol, val);
+                document.getElementById('eth-price').innerText = '$' + data.ethereum.usd.toLocaleString();
+                document.getElementById('eth-change').innerText = data.ethereum.usd_24h_change.toFixed(2) + '%';
+                document.getElementById('eth-change').className = data.ethereum.usd_24h_change >= 0 ? 'price-up' : 'price-down';
+            } catch (e) { console.log("Error"); }
         }
-    }
-
-    function showToast(coin, amt) {
-        const container = document.getElementById('notif-container');
-        const t = document.createElement('div');
-        t.className = 'toast';
-        t.innerHTML = `🐋 <b>${ui[cur].alert}</b> ${coin} <br> <span style="color:gold">$${amt.toLocaleString()}</span>`;
-        container.appendChild(t);
-        setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 4000);
-    }
-</script>
+        fetchPrices();
+        setInterval(fetchPrices, 30000); // تحديث كل 30 ثانية
+    </script>
 </body>
 </html>
