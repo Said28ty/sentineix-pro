@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTINELX PRO | 5240 Assets & Deep Whale Intel</title>
+    <title>SENTINELX PRO | 5240 Assets & Whale Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #1a73e8; --bg: #0b101b; --card: #161e2d; --gold: #f59e0b; --up: #10b981; --down: #ef4444; }
         body { background: var(--bg); color: #f1f5f9; font-family: 'Roboto', 'Tajawal', sans-serif; margin: 0; padding-top: 110px; }
         
-        /* شريط الحالة والعداد 5240 */
+        /* شريط المسح الضوئي لـ 5240 عملة */
         .deep-scanner { background: #111827; border: 1px solid #1e293b; border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .progress-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; margin-top: 10px; border: 1px solid #000; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), #fff); width: 0%; transition: 0.2s; }
@@ -24,12 +24,12 @@
         th { background: #1e293b; padding: 15px; color: var(--gold); font-weight: 900; }
         td { padding: 12px; border-bottom: 1px solid #2d3748; font-weight: bold; }
 
-        /* نافذة معلومات المحفظة الكاملة (Deep Intel Modal) */
+        /* نافذة المعلومات العميقة للمحفظة */
         #walletModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 999999; backdrop-filter: blur(8px); }
         .modal-content { background: #0f172a; width: 95%; max-width: 600px; border-radius: 25px; padding: 30px; border: 2px solid var(--gold); overflow-y: auto; max-height: 90vh; }
         
         .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-        .intel-box { background: #1e293b; padding: 15px; border-radius: 15px; border-left: 4px solid var(--gold); }
+        .intel-box { background: #1e293b; padding: 15px; border-radius: 15px; border-left: 4px solid var(--gold); text-align: center; }
         .intel-box small { color: #94a3b8; font-size: 11px; text-transform: uppercase; }
         .intel-box div { font-size: 16px; font-weight: 900; margin-top: 5px; }
 
@@ -53,18 +53,28 @@
     <main>
         <div class="deep-scanner">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span id="scan-status" style="font-weight: 900;"><i class="fas fa-sync fa-spin"></i> SCANNING 5240 ASSETS...</span>
+                <span id="scan-status" style="font-weight: 900;"><i class="fas fa-sync fa-spin"></i> LIVE SCANNING 5240 ASSETS...</span>
                 <span style="color:var(--gold); font-weight: 900;" id="scan-percent">0/5240</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="p-bar"></div></div>
         </div>
 
         <div class="card">
-            <h3 id="txt-whale-title" style="color:var(--gold)"><i class="fas fa-id-card"></i> Live Whale Intelligence (Top 10)</h3>
+            <h3 id="txt-whale-title" style="color:var(--gold)"><i class="fas fa-id-card"></i> SentinelX Whale Surveillance (Top 10)</h3>
             <div class="table-container">
                 <table>
-                    <thead><tr><th id="th1">Tag</th><th id="th2">Address</th><th id="th3">Portfolio</th><th id="th4">Main Net</th></tr></thead>
+                    <thead><tr><th id="th1">Identity</th><th id="th2">Public Address</th><th id="th3">Portfolio Value</th><th id="th4">Blockchain</th></tr></thead>
                     <tbody id="whale-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 id="txt-radar-title" style="color:var(--gold)"><i class="fas fa-satellite-dish"></i> Real-time 5240 Assets Radar</h3>
+            <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead><tr><th id="th5">Asset</th><th id="th6">Price</th><th id="th7">Signal</th><th id="th8">Volume</th></tr></thead>
+                    <tbody id="market-body"></tbody>
                 </table>
             </div>
         </div>
@@ -72,40 +82,46 @@
 
     <aside>
         <div class="card">
-            <h4 style="text-align: center;" id="txt-reg">REGISTER & TRADE</h4>
-            <a href="Https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=ar&ref=GRO_28502_3ZVJE&utm_source=default" target="_blank" class="aff-link bn">BINANCE VIP</a>
-            <a href="https://www.kucoin.com/ucenter/signup?rcode=QBSKG21V&utm_source=app_g_Share" target="_blank" class="aff-link kc">KUCOIN PRO</a>
-            <a href="https://promote.mexc.com/r/3SZVmiNqLt" target="_blank" class="aff-link mx">MEXC GLOBAL</a>
+            <h4 style="text-align: center;" id="txt-reg">GATEWAY TO VIP PROFITS</h4>
+            <a href="Https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=ar&ref=GRO_28502_3ZVJE&utm_source=default" target="_blank" class="aff-link bn">BINANCE VIP REGISTRATION</a>
+            <a href="https://www.kucoin.com/ucenter/signup?rcode=QBSKG21V&utm_source=app_g_Share" target="_blank" class="aff-link kc">KUCOIN PRO ACCESS</a>
+            <a href="https://promote.mexc.com/r/3SZVmiNqLt" target="_blank" class="aff-link mx">MEXC GLOBAL HUB</a>
         </div>
     </aside>
 </div>
 
 <div id="walletModal">
     <div class="modal-content">
-        <h2 style="color:var(--gold); margin:0; text-align:center;"><i class="fas fa-microchip"></i> DEEP INTEL REPORT</h2>
+        <h2 style="color:var(--gold); margin:0; text-align:center;"><i class="fas fa-user-secret"></i> FULL WALLET REPORT</h2>
         <p id="m-addr" style="text-align:center; font-family:monospace; color:#60a5fa; font-size:12px; margin:10px 0;"></p>
         
         <div class="intel-grid">
-            <div class="intel-box"><small id="l1">Total Value</small><div id="m-val" style="color:var(--up)"></div></div>
-            <div class="intel-box"><small id="l2">Wallet Type</small><div id="m-type">Institutional</div></div>
-            <div class="intel-box"><small id="l3">30D Win Rate</small><div id="m-win" style="color:var(--up)">+88.4%</div></div>
-            <div class="intel-box"><small id="l4">Top Exchange</small><div id="m-ex">Binance User</div></div>
-            <div class="intel-box"><small id="l5">First Active</small><div id="m-date">Oct 2021</div></div>
-            <div class="intel-box"><small id="l6">Main Asset</small><div id="m-main">BTC / ETH</div></div>
+            <div class="intel-box"><small id="l1">Total Portfolio</small><div id="m-val" style="color:var(--up)"></div></div>
+            <div class="intel-box"><small id="l2">Owner Entity</small><div id="m-type">Institutional Whale</div></div>
+            <div class="intel-box"><small id="l3">Success Rate</small><div id="m-win" style="color:var(--up)">+94.2%</div></div>
+            <div class="intel-box"><small id="l4">Known Exchange</small><div id="m-ex">Binance Institutional</div></div>
+            <div class="intel-box"><small id="l5">Wallet History</small><div id="m-date">Created 2019</div></div>
+            <div class="intel-box"><small id="l6">Dominant Holding</small><div id="m-main">BTC / SOL / PEPE</div></div>
         </div>
 
         <div class="tx-history">
-            <h4 style="margin:0 0 10px 0; color:var(--gold);" id="l7">Recent On-Chain Activity</h4>
+            <h4 style="margin:0 0 10px 0; color:var(--gold);" id="l7">Live On-Chain Transactions</h4>
             <div id="m-txs"></div>
         </div>
 
-        <button onclick="closeModal()" style="width:100%; margin-top:20px; padding:15px; background:var(--primary); color:white; border:none; border-radius:15px; cursor:pointer; font-weight:900;">CLOSE REPORT | إغلاق التقرير</button>
+        <button onclick="closeModal()" style="width:100%; margin-top:20px; padding:15px; background:var(--primary); color:white; border:none; border-radius:15px; cursor:pointer; font-weight:900; letter-spacing:1px;">CLOSE REPORT | إغلاق التقرير</button>
     </div>
 </div>
+
+<footer style="background:#000; padding:30px; text-align:center; border-top:4px solid var(--gold);">
+    <p style="font-weight: 900;">SENTINELX PRO | SAHRAWYCRYPTO 2026</p>
+    <a href="https://t.me/saidahmed28" style="color:var(--gold); text-decoration:none;">TELEGRAM: @saidahmed28</a>
+</footer>
 
 <script>
     let currentLang = 'en';
     let scanIdx = 0;
+    const TOTAL_ASSETS = 5240;
 
     function toggleLang() {
         const html = document.getElementById('mainHtml');
@@ -118,10 +134,11 @@
 
     function updateTexts(lang) {
         const d = {
-            en: { wt: "Live Whale Intelligence (Top 10)", ss: "SCANNING 5240 ASSETS...", r: "REGISTER & TRADE", l1: "Total Value", l2: "Wallet Type", l3: "Win Rate", l4: "Exchange", l5: "First Active", l6: "Main Asset", l7: "Recent On-Chain Activity" },
-            ar: { wt: "ذكاء الحيتان المباشر (أحدث 10)", ss: "جاري فحص 5240 عملة...", r: "سجل وابدأ التداول", l1: "القيمة الإجمالية", l2: "نوع المحفظة", l3: "نسبة الربح", l4: "المنصة", l5: "أول ظهور", l6: "الأصل الأساسي", l7: "نشاط الشبكة الأخير" }
+            en: { wt: "SentinelX Whale Surveillance (Top 10)", radar: "Real-time 5240 Assets Radar", ss: "LIVE SCANNING 5240 ASSETS...", r: "GATEWAY TO VIP PROFITS", l1: "Total Portfolio", l2: "Owner Entity", l3: "Success Rate", l4: "Known Exchange", l5: "Wallet History", l6: "Dominant Holding", l7: "Live On-Chain Transactions" },
+            ar: { wt: "رقابة الحيتان المباشرة (أحدث 10)", radar: "رادار الـ 5240 عملة المباشر", ss: "جاري فحص 5240 عملة...", r: "بوابة أرباح كبار الشخصيات", l1: "إجمالي المحفظة", l2: "كيان المحفظة", l3: "نسبة النجاح", l4: "المنصة المعروفة", l5: "تاريخ المحفظة", l6: "الأصل المهيمن", l7: "تحويلات الشبكة الحية" }
         };
         document.getElementById('txt-whale-title').innerText = d[lang].wt;
+        document.getElementById('txt-radar-title').innerText = d[lang].radar;
         document.getElementById('scan-status').innerText = d[lang].ss;
         document.getElementById('txt-reg').innerText = d[lang].r;
         document.getElementById('l1').innerText = d[lang].l1; document.getElementById('l2').innerText = d[lang].l2;
@@ -131,20 +148,34 @@
     }
 
     function startApp() {
+        // محاكاة الفحص لـ 5240 عملة
         setInterval(() => {
-            scanIdx += Math.floor(Math.random() * 15) + 5;
-            if(scanIdx > 5240) scanIdx = 0;
-            document.getElementById('p-bar').style.width = (scanIdx/5240*100) + "%";
-            document.getElementById('scan-percent').innerText = `${scanIdx}/5240`;
-        }, 150);
+            scanIdx += Math.floor(Math.random() * 20) + 10;
+            if(scanIdx > TOTAL_ASSETS) scanIdx = 0;
+            document.getElementById('p-bar').style.width = (scanIdx/TOTAL_ASSETS*100) + "%";
+            document.getElementById('scan-percent').innerText = `${scanIdx}/${TOTAL_ASSETS}`;
+        }, 100);
+        
+        setInterval(marketScanner, 900);
         setInterval(whaleScanner, 4000);
     }
 
+    function marketScanner() {
+        const list = ['BTC','ETH','SOL','PEPE','BNB','SUI','FET','NEAR','LINK','ARB','TIA','OP','SHIB','WLD','ZRO','STRK'];
+        const asset = list[Math.floor(Math.random()*list.length)];
+        const price = (Math.random() * 65000).toLocaleString();
+        const buy = Math.random() > 0.45;
+        const tbody = document.getElementById('market-body');
+        const row = tbody.insertRow(0);
+        row.innerHTML = `<td>${asset}</td><td>$${price}</td><td style="color:${buy?'var(--up)':'var(--down)'}">${buy?'STRONG BUY':'SELL'}</td><td>$${Math.floor(Math.random()*25000000).toLocaleString()}</td>`;
+        if(tbody.rows.length > 15) tbody.deleteRow(15);
+    }
+
     function whaleScanner() {
-        const nets = ['Ethereum', 'Bitcoin', 'Solana', 'BSC'];
-        const tags = ['Exchange Whale', 'Venture Capital', 'Smart Money', 'Genesis Wallet'];
-        const addr = "0x" + Math.random().toString(16).slice(2,10).toUpperCase() + "...";
-        const val = (Math.random() * 300 + 5).toFixed(2) + "M";
+        const nets = ['Ethereum Mainnet', 'Bitcoin Network', 'Solana RPC', 'BSC Node'];
+        const tags = ['Exchange Liquidity', 'Institutional VC', 'Smart Money Alert', 'Early Invester'];
+        const addr = "0x" + Math.random().toString(16).slice(2,10).toUpperCase() + "..." + Math.random().toString(16).slice(2,5).toUpperCase();
+        const val = (Math.random() * 450 + 10).toFixed(2) + "M";
         const tbody = document.getElementById('whale-body');
         const row = tbody.insertRow(0);
         row.innerHTML = `<td>${tags[Math.floor(Math.random()*4)]}</td><td><span class="wallet-addr" onclick="openInfo('${addr}','${val}')">${addr}</span></td><td style="color:var(--up)">$${val}</td><td>${nets[Math.floor(Math.random()*4)]}</td>`;
@@ -154,15 +185,12 @@
     function openInfo(addr, val) {
         document.getElementById('m-addr').innerText = addr;
         document.getElementById('m-val').innerText = "$" + val;
-        document.getElementById('m-win').innerText = "+" + (Math.random() * 30 + 60).toFixed(1) + "%";
-        
-        const exchanges = ['Binance VIP', 'Coinbase Custody', 'OKX Whale', 'Kraken Pro'];
-        document.getElementById('m-ex').innerText = exchanges[Math.floor(Math.random()*4)];
+        document.getElementById('m-win').innerText = "+" + (Math.random() * 25 + 70).toFixed(1) + "%";
         
         const txs = [
-            {t: "DEPOSIT", v: "1,200 ETH", f: "External"},
-            {t: "SWAP", v: "BTC to USDT", f: "Uniswap"},
-            {t: "WITHDRAW", v: "5,000,000 USDC", f: "Binance"}
+            {t: "LARGE PURCHASE", v: "2,500,000 USDT", f: "MEXC Global"},
+            {t: "ON-CHAIN SWAP", v: "15,000 SOL", f: "Jupiter DEX"},
+            {t: "WHALE TRANSFER", v: "500 BTC", f: "Cold Wallet"}
         ];
         let h = "";
         txs.forEach(x => { h += `<div class="tx-row"><span>${x.t}</span><span style="color:var(--gold)">${x.v}</span><span>${x.f}</span></div>`; });
