@@ -3,44 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTINELX PRO | 5240 Assets & AI Notifications</title>
+    <title>SENTINELX PRO | 5240 Assets AI Surveillance</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #1a73e8; --bg: #0b101b; --card: #161e2d; --gold: #f59e0b; --up: #10b981; --down: #ef4444; }
-        body { background: var(--bg); color: #f1f5f9; font-family: 'Roboto', 'Tajawal', sans-serif; margin: 0; padding-top: 155px; }
+        body { background: var(--bg); color: #f1f5f9; font-family: 'Roboto', 'Tajawal', sans-serif; margin: 0; padding-top: 155px; overflow-x: hidden; }
         
-        /* الأشرطة العلوية */
-        .breaking-news { background: #991b1b; color: white; height: 35px; line-height: 35px; position: fixed; top: 0; width: 100%; z-index: 10002; font-size: 13px; font-weight: bold; text-align: center; }
+        /* الأشرطة العلوية الثابتة */
+        .breaking-news { background: #991b1b; color: white; height: 35px; line-height: 35px; position: fixed; top: 0; width: 100%; z-index: 10002; font-size: 13px; font-weight: bold; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .price-ticker { background: #000; color: #fff; height: 40px; line-height: 40px; overflow: hidden; position: fixed; top: 35px; width: 100%; z-index: 10001; border-bottom: 1px solid #222; }
         .live-news-bar { background: #1e293b; color: #60a5fa; height: 40px; line-height: 40px; overflow: hidden; position: fixed; top: 75px; width: 100%; z-index: 10000; border-bottom: 2px solid var(--gold); font-size: 14px; font-weight: bold; }
         .ticker-track { display: inline-block; white-space: nowrap; animation: scrollTicker 60s linear infinite; }
 
-        /* نظام الإشعارات الجديد */
+        /* حاوية الإشعارات المنبثقة */
         #notification-container { position: fixed; top: 130px; right: 20px; z-index: 999999; width: 320px; pointer-events: none; }
-        .toast-notify { background: rgba(22, 30, 45, 0.95); border-left: 5px solid var(--gold); color: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards; pointer-events: auto; border: 1px solid #2d3748; }
-        .toast-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-weight: 900; color: var(--gold); font-size: 12px; }
-        .toast-body { font-size: 13px; line-height: 1.4; font-weight: bold; }
+        .toast-notify { background: rgba(22, 30, 45, 0.98); border-left: 5px solid var(--gold); color: white; padding: 15px; margin-bottom: 10px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); backdrop-filter: blur(15px); animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), fadeOut 0.5s ease-in 4.5s forwards; pointer-events: auto; border: 1px solid rgba(255,255,255,0.05); }
+        .toast-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-weight: 900; color: var(--gold); font-size: 11px; text-transform: uppercase; }
+        .toast-body { font-size: 13px; font-weight: bold; line-height: 1.4; }
 
-        /* الأقسام الأساسية */
+        /* المحتوى الأساسي */
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 350px; gap: 25px; }
         @media (max-width: 1100px) { .container { grid-template-columns: 1fr; } }
-        .card { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid #2d3748; margin-bottom: 25px; }
-        .table-container { border: 1px solid #2d3748; border-radius: 12px; background: #0f172a; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem; }
-        th { background: #1e293b; padding: 15px; color: var(--gold); }
-        td { padding: 12px; border-bottom: 1px solid #2d3748; font-weight: bold; }
-
-        /* نافذة المحفظة */
-        #walletModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 999999; backdrop-filter: blur(8px); }
-        .modal-content { background: #0f172a; width: 95%; max-width: 600px; border-radius: 25px; padding: 30px; border: 2px solid var(--gold); max-height: 90vh; overflow-y: auto; }
         
-        .wallet-addr { color: #60a5fa; cursor: pointer; background: #1a202c; padding: 5px 10px; border-radius: 8px; font-family: monospace; }
-        .aff-link { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; text-decoration: none; border-radius: 12px; margin-bottom: 10px; font-weight: 900; color: white; }
-        .bn { background: #F3BA2F; color: #000; } .kc { background: #24ae8f; } .mx { background: #00a7e1; }
-        .lang-switch { position: fixed; bottom: 30px; left: 30px; z-index: 10005; background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 900; cursor: pointer; }
+        .card { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid #2d3748; margin-bottom: 25px; transition: 0.3s; }
+        .card:hover { border-color: var(--gold); }
+        
+        .progress-bar { height: 10px; background: #334155; border-radius: 5px; overflow: hidden; margin-top: 10px; border: 1px solid #000; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), #fff); width: 0%; transition: 0.2s; }
 
-        @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
+        .table-container { border: 1px solid #2d3748; border-radius: 15px; background: #0f172a; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem; }
+        th { background: #1e293b; padding: 18px; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
+        td { padding: 14px; border-bottom: 1px solid #2d3748; font-weight: bold; }
+
+        /* المحفظة الذكية */
+        #walletModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; z-index: 9999999; backdrop-filter: blur(10px); }
+        .modal-content { background: #0f172a; width: 95%; max-width: 620px; border-radius: 30px; padding: 35px; border: 2px solid var(--gold); box-shadow: 0 0 50px rgba(245, 158, 11, 0.2); }
+        .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .intel-box { background: #1e293b; padding: 15px; border-radius: 15px; border-left: 4px solid var(--gold); text-align: center; }
+        .wallet-addr { color: #60a5fa; cursor: pointer; background: rgba(96, 165, 250, 0.1); padding: 6px 12px; border-radius: 8px; font-family: monospace; border: 1px dashed #60a5fa; }
+
+        .aff-link { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; text-decoration: none; border-radius: 15px; margin-bottom: 12px; font-weight: 900; color: white; transition: 0.3s; transform: scale(1); }
+        .aff-link:hover { transform: scale(1.03); }
+        .bn { background: #F3BA2F; color: #000; } .kc { background: #24ae8f; } .mx { background: #00a7e1; }
+        
+        .lang-switch { position: fixed; bottom: 30px; left: 30px; z-index: 10005; background: var(--gold); color: #000; border: none; padding: 14px 28px; border-radius: 50px; font-weight: 900; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+
+        @keyframes slideIn { from { transform: translateX(130%); } to { transform: translateX(0); } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
         @keyframes scrollTicker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
     </style>
@@ -51,19 +61,19 @@
 
 <div class="breaking-news">
     <div class="ticker-track">
-        <span style="margin:0 50px;">🌍 GLOBAL HUB: SentinelX Engine is deep-scanning 5240 Assets | رصد وتحليل 5240 عملة رقمية</span>
+        <span style="margin:0 50px;">🔴 LIVE AI ANALYSIS: SENTINELX PRO IS SCANNING 5240 GLOBAL ASSETS | رصد استخباراتي لـ 5240 عملة رقمية</span>
     </div>
 </div>
 
 <div class="price-ticker">
     <div class="ticker-track"> 
-        ₿ BTC: $64,210 • Ξ ETH: $3,450 • ◈ SOL: $145 • 🪙 PEPE: $0.000009 • 💎 SUI: $1.95 • 📈 LINK: $18.20 • 🟢 FET: $2.45
+        ₿ BTC: $64,210 • Ξ ETH: $3,450 • ◈ SOL: $145 • 🪙 PEPE: $0.000009 • 📈 LINK: $18.20 • 🟢 FET: $2.45 • 💎 SUI: $1.95 • 🧱 ARB: $1.15
     </div>
 </div>
 
 <div class="live-news-bar">
-    <div class="ticker-track" id="news-ticker">
-        🔥 [LIVE] Whale moved 500 BTC to Binance • [عاجل] حوت ضخم يحول 500 بيتكوين • 🚀 SUI Network TVL hits record high • 📉 FED Meeting wait...
+    <div class="ticker-track">
+        🔥 [ALARM] Whale 0x3F... moved 1,200 BTC to Binance • [عاجل] حوت ضخم ينقل 1,200 بيتكوين • 🚀 SUI Network TVL hits record $800M • [خبر] شبكة SUI تحقق سيولة قياسية • 🐳 New Institutional wallet detected on Solana • [رصد] محفظة مؤسسية تظهر على سولانا
     </div>
 </div>
 
@@ -73,27 +83,27 @@
     <main>
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;">
-                <span id="scan-status" style="font-weight: 900; font-size:12px;"><i class="fas fa-sync fa-spin"></i> SCANNING...</span>
-                <span style="color:var(--gold); font-weight: 900; font-size:12px;" id="scan-percent">0/5240</span>
+                <span id="scan-status" style="font-weight: 900; font-size:13px; color:var(--gold)"><i class="fas fa-microchip fa-spin"></i> AI ENGINE: SCANNING 5240 ASSETS...</span>
+                <span style="font-weight: 900; font-size:13px;" id="scan-percent">0/5240</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="p-bar"></div></div>
         </div>
 
         <div class="card">
-            <h3 id="txt-whale-title" style="color:var(--gold)"><i class="fas fa-id-card"></i> Whale Surveillance (Top 10)</h3>
+            <h3 id="txt-whale-title" style="color:var(--gold)"><i class="fas fa-user-secret"></i> Whale Surveillance Intelligence</h3>
             <div class="table-container">
                 <table>
-                    <thead><tr><th id="th1">Identity</th><th id="th2">Public Address</th><th id="th3">Portfolio Value</th><th id="th4">Network</th></tr></thead>
+                    <thead><tr><th id="th1">Identity</th><th id="th2">Public Address</th><th id="th3">Portfolio</th><th id="th4">Net</th></tr></thead>
                     <tbody id="whale-body"></tbody>
                 </table>
             </div>
         </div>
 
         <div class="card">
-            <h3 id="txt-radar-title" style="color:var(--gold)"><i class="fas fa-satellite-dish"></i> 5240 Assets Radar</h3>
-            <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+            <h3 id="txt-radar-title" style="color:var(--gold)"><i class="fas fa-radar"></i> SentinelX 5240 Assets Radar</h3>
+            <div class="table-container" style="max-height: 450px; overflow-y: auto;">
                 <table>
-                    <thead><tr><th id="th5">Asset</th><th id="th6">Price</th><th id="th7">Signal</th><th id="th8">Volume</th></tr></thead>
+                    <thead><tr><th id="th5">Asset</th><th id="th6">Price</th><th id="th7">AI Signal</th><th id="th8">Volume</th></tr></thead>
                     <tbody id="market-body"></tbody>
                 </table>
             </div>
@@ -102,26 +112,36 @@
 
     <aside>
         <div class="card">
-            <h4 style="text-align: center;" id="txt-reg">GATEWAY TO VIP PROFITS</h4>
-            <a href="Https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=ar&ref=GRO_28502_3ZVJE&utm_source=default" target="_blank" class="aff-link bn">BINANCE VIP</a>
-            <a href="https://www.kucoin.com/ucenter/signup?rcode=QBSKG21V&utm_source=app_g_Share" target="_blank" class="aff-link kc">KUCOIN PRO</a>
-            <a href="https://promote.mexc.com/r/3SZVmiNqLt" target="_blank" class="aff-link mx">MEXC GLOBAL</a>
+            <h4 style="text-align: center; margin-top:0;" id="txt-reg">INSTITUTIONAL PARTNERS</h4>
+            <a href="Https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=ar&ref=GRO_28502_3ZVJE&utm_source=default" target="_blank" class="aff-link bn"><i class="fab fa-bitcoin"></i> BINANCE VIP ACCESS</a>
+            <a href="https://www.kucoin.com/ucenter/signup?rcode=QBSKG21V&utm_source=app_g_Share" target="_blank" class="aff-link kc"><i class="fas fa-chart-line"></i> KUCOIN PRO HUB</a>
+            <a href="https://promote.mexc.com/r/3SZVmiNqLt" target="_blank" class="aff-link mx"><i class="fas fa-globe"></i> MEXC GLOBAL CORE</a>
+        </div>
+        <div class="card" style="text-align:center; padding:15px; font-size:12px; color:#94a3b8;">
+            <p id="txt-footer-info">SentinelX uses advanced AI to track 5240 on-chain assets in real-time.</p>
         </div>
     </aside>
 </div>
 
 <div id="walletModal">
     <div class="modal-content">
-        <h2 style="color:var(--gold); margin:0; text-align:center;"><i class="fas fa-user-secret"></i> DEEP REPORT</h2>
-        <p id="m-addr" style="text-align:center; font-family:monospace; color:#60a5fa; font-size:12px; margin:10px 0;"></p>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:15px 0; text-align:center;">
-            <div style="background:#1e293b; padding:10px; border-radius:10px;"><small>Value</small><br><strong id="m-val" style="color:var(--up)"></strong></div>
-            <div style="background:#1e293b; padding:10px; border-radius:10px;"><small>Win Rate</small><br><strong style="color:var(--up)">+94%</strong></div>
+        <h2 style="color:var(--gold); margin:0; text-align:center;"><i class="fas fa-file-invoice-dollar"></i> DEEP ASSET REPORT</h2>
+        <p id="m-addr" style="text-align:center; margin:15px 0;"></p>
+        <div class="intel-grid">
+            <div class="intel-box"><small id="l1">Total Value</small><div id="m-val" style="color:var(--up)"></div></div>
+            <div class="intel-box"><small id="l2">Success Rate</small><div style="color:var(--up)">+96.8%</div></div>
+            <div class="intel-box"><small id="l3">Wallet Type</small><div>Institutional</div></div>
+            <div class="intel-box"><small id="l4">Known Origin</small><div>Binance Whale</div></div>
         </div>
-        <div id="m-txs" style="background:#0b101b; padding:15px; border-radius:10px; font-size:11px;"></div>
-        <button onclick="closeModal()" style="width:100%; margin-top:20px; padding:15px; background:var(--primary); color:white; border:none; border-radius:15px; cursor:pointer; font-weight:900;">CLOSE REPORT</button>
+        <div id="m-txs" style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; font-size:11px;"></div>
+        <button onclick="closeModal()" style="width:100%; margin-top:25px; padding:18px; background:var(--primary); color:white; border:none; border-radius:15px; cursor:pointer; font-weight:900;">CLOSE INTELLIGENCE REPORT</button>
     </div>
 </div>
+
+<footer style="background:#000; padding:40px; text-align:center; border-top:5px solid var(--gold);">
+    <p style="font-weight: 900; letter-spacing: 2px;">SENTINELX PRO | POWERED BY SAHRAWYCRYPTO | 2026</p>
+    <a href="https://t.me/saidahmed28" style="color:var(--gold); text-decoration:none; font-weight:bold;">Join Official Intel: @saidahmed28</a>
+</footer>
 
 <script>
     let currentLang = 'en';
@@ -139,76 +159,78 @@
 
     function updateTexts(lang) {
         const d = {
-            en: { wt: "Whale Surveillance (Top 10)", radar: "5240 Assets Radar", r: "GATEWAY TO VIP PROFITS" },
-            ar: { wt: "تتبع الحيتان (أحدث 10)", radar: "رادار الـ 5240 عملة", r: "بوابة أرباح VIP" }
+            en: { wt: "Whale Surveillance Intelligence", radar: "SentinelX 5240 Assets Radar", reg: "INSTITUTIONAL PARTNERS", ss: "AI ENGINE: SCANNING 5240 ASSETS...", l1: "Total Value", l2: "Success Rate", l3: "Wallet Type", l4: "Known Origin" },
+            ar: { wt: "استخبارات رقابة الحيتان", radar: "رادار الـ 5240 عملة المباشر", reg: "الشركاء المؤسسيون", ss: "محرك الذكاء: فحص 5240 عملة...", l1: "إجمالي القيمة", l2: "نسبة النجاح", l3: "نوع المحفظة", l4: "المصدر المعروف" }
         };
         document.getElementById('txt-whale-title').innerText = d[lang].wt;
         document.getElementById('txt-radar-title').innerText = d[lang].radar;
-        document.getElementById('txt-reg').innerText = d[lang].r;
+        document.getElementById('txt-reg').innerText = d[lang].reg;
+        document.getElementById('scan-status').innerText = d[lang].ss;
+        document.getElementById('l1').innerText = d[lang].l1;
+        document.getElementById('l2').innerText = d[lang].l2;
+        document.getElementById('l3').innerText = d[lang].l3;
+        document.getElementById('l4').innerText = d[lang].l4;
+        document.getElementById('langBtn').innerText = (lang === 'en' ? 'العربية' : 'English');
     }
 
     function notify(title, message) {
         const container = document.getElementById('notification-container');
         const toast = document.createElement('div');
         toast.className = 'toast-notify';
-        toast.innerHTML = `
-            <div class="toast-header"><span>${title}</span><span>JUST NOW</span></div>
-            <div class="toast-body">${message}</div>
-        `;
+        toast.innerHTML = `<div class="toast-header"><span>${title}</span><span>NEW</span></div><div class="toast-body">${message}</div>`;
         container.appendChild(toast);
         setTimeout(() => toast.remove(), 5000);
     }
 
     function startApp() {
         setInterval(() => {
-            scanIdx += Math.floor(Math.random() * 20) + 10;
+            scanIdx += Math.floor(Math.random() * 25) + 15;
             if(scanIdx > TOTAL_ASSETS) scanIdx = 0;
             document.getElementById('p-bar').style.width = (scanIdx/TOTAL_ASSETS*100) + "%";
             document.getElementById('scan-percent').innerText = `${scanIdx}/${TOTAL_ASSETS}`;
-        }, 100);
+        }, 120);
         
-        setInterval(marketScanner, 900);
-        setInterval(whaleScanner, 4000);
+        setInterval(marketScanner, 800);
+        setInterval(whaleScanner, 4500);
         
-        // محاكي الإشعارات الذكية
         setInterval(() => {
-            const events = [
-                {t: "🚀 SIGNAL", m: "Golden Cross detected for $SUI (H1)"},
-                {t: "🐳 WHALE", m: "Wallet 0x71... moved $85M to Binance"},
-                {t: "⚠️ VOLATILITY", m: "$PEPE increased +12% in 5 minutes"},
-                {t: "💎 ALPHA", m: "Smart Money accumulation on $FET detected"}
+            const ev = [
+                {t: "🚀 AI SIGNAL", m: "Bullish divergence detected on $FET (Daily)"},
+                {t: "⚠️ VOLATILITY", m: "$PEPE high-frequency trading detected"},
+                {t: "🐳 WHALE ALERT", m: "Institutional wallet accumulation on $SUI"},
+                {t: "📊 MARKET INFO", m: "Total Market Cap reached new 2026 High"}
             ];
-            const ev = events[Math.floor(Math.random()*events.length)];
-            notify(ev.t, ev.m);
-        }, 8000);
+            const pick = ev[Math.floor(Math.random()*ev.length)];
+            notify(pick.t, pick.m);
+        }, 9000);
     }
 
     function marketScanner() {
-        const list = ['BTC','ETH','SOL','PEPE','SUI','FET','LINK'];
+        const list = ['BTC','ETH','SOL','PEPE','SUI','FET','NEAR','LINK','ARB','TIA'];
         const asset = list[Math.floor(Math.random()*list.length)];
-        const price = (Math.random() * 65000).toLocaleString();
+        const price = (Math.random() * 68000).toLocaleString();
         const buy = Math.random() > 0.45;
         const tbody = document.getElementById('market-body');
         const row = tbody.insertRow(0);
-        row.innerHTML = `<td>${asset}</td><td>$${price}</td><td style="color:${buy?'var(--up)':'var(--down)'}">${buy?'BUY':'SELL'}</td><td>$${Math.floor(Math.random()*5000000)}</td>`;
+        row.innerHTML = `<td>${asset}</td><td>$${price}</td><td style="color:${buy?'var(--up)':'var(--down)'}">${buy?'STRONG BUY':'NEUTRAL'}</td><td>$${Math.floor(Math.random()*40000000).toLocaleString()}</td>`;
         if(tbody.rows.length > 15) tbody.deleteRow(15);
     }
 
     function whaleScanner() {
-        const addr = "0x" + Math.random().toString(16).slice(2,10).toUpperCase() + "...";
-        const val = (Math.random() * 450 + 10).toFixed(2) + "M";
+        const tags = ['Institutional Whale', 'Exchange Reserve', 'Smart Money', 'Venture Fund'];
+        const addr = "0x" + Math.random().toString(16).slice(2,12).toUpperCase() + "...";
+        const val = (Math.random() * 500 + 20).toFixed(2) + "M";
         const tbody = document.getElementById('whale-body');
         const row = tbody.insertRow(0);
-        row.innerHTML = `<td>Whale</td><td><span class="wallet-addr" onclick="openInfo('${addr}','${val}')">${addr}</span></td><td style="color:var(--up)">$${val}</td><td>Ethereum</td>`;
+        row.innerHTML = `<td>${tags[Math.floor(Math.random()*4)]}</td><td><span class="wallet-addr" onclick="openInfo('${addr}','${val}')">${addr}</span></td><td style="color:var(--up)">$${val}</td><td>Ethereum</td>`;
         if(tbody.rows.length > 10) tbody.deleteRow(10);
-        
-        if(parseFloat(val) > 300) notify("🚨 MASSIVE WHALE", `A huge transaction of $${val} detected on chain!`);
+        if(parseFloat(val) > 350) notify("🚨 MASSIVE WHALE", `Wallet ${addr} detected with $${val} Portfolio!`);
     }
 
     function openInfo(addr, val) {
-        document.getElementById('m-addr').innerText = addr;
+        document.getElementById('m-addr').innerHTML = `<span class="wallet-addr">${addr}</span>`;
         document.getElementById('m-val').innerText = "$" + val;
-        document.getElementById('m-txs').innerHTML = "Loading live transactions...<br>• Deposit: 5M USDT<br>• Buy: 120,000 $SOL";
+        document.getElementById('m-txs').innerHTML = "<strong>LATEST ACTIONS:</strong><br>• BUY: 4.5M $PEPE (MEXC)<br>• STAKE: 200,000 $SOL (Validators)<br>• TRANSFER: 10M USDT (Binance)";
         document.getElementById('walletModal').style.display = 'flex';
     }
     function closeModal() { document.getElementById('walletModal').style.display = 'none'; }
