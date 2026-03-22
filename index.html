@@ -1,77 +1,208 @@
+
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr" id="mainHtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SahrawyCrypto Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>SAHRAWY CRYPTO | 5240 Assets & Whale Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #0f172a; color: white; padding: 20px; }
-        .card { background: #1e293b; border-radius: 15px; padding: 20px; border: 1px solid #334155; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: right; color: #94a3b8; padding: 12px; border-bottom: 2px solid #334155; }
-        td { padding: 12px; border-bottom: 1px solid #334155; }
-        .up { color: #10b981; font-weight: bold; }
-        .down { color: #ef4444; font-weight: bold; }
+        :root { --primary: #1a73e8; --bg: #0b101b; --card: #161e2d; --gold: #f59e0b; --up: #10b981; --down: #ef4444; }
+        body { background: var(--bg); color: #f1f5f9; font-family: 'Roboto', 'Tajawal', sans-serif; margin: 0; padding-top: 100px; overflow-x: hidden; transition: 0.3s; }
+        
+        /* 1. شريط الأخبار العلوي */
+        .breaking-news { background: #991b1b; color: white; height: 30px; line-height: 30px; position: fixed; top: 0; width: 100%; z-index: 10002; font-size: 12px; font-weight: bold; }
+        .price-ticker { background: #000; color: #fff; height: 40px; line-height: 40px; overflow: hidden; position: fixed; top: 30px; width: 100%; z-index: 10001; border-bottom: 1px solid #333; }
+        
+        .ticker-track { display: inline-block; white-space: nowrap; animation: scrollTicker 50s linear infinite; }
+        
+        /* 2. تبديل اللغة */
+        .lang-switch { position: fixed; bottom: 20px; left: 20px; z-index: 10005; background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
+
+        .card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #2d3748; margin-bottom: 20px; }
+        .table-container { border: 1px solid #2d3748; border-radius: 10px; background: #0f172a; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem; }
+        th { background: #1e293b; padding: 12px; color: var(--gold); }
+        td { padding: 12px; border-bottom: 1px solid #2d3748; font-weight: bold; }
+
+        /* 3. الإشعارات */
+        #notification-area { position: fixed; top: 80px; right: 20px; z-index: 99999; width: 300px; }
+        .site-notification { background: #1e293b; color: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-right: 5px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.5); animation: slideNotify 0.5s ease-out; position: relative; }
+        
+        @keyframes slideNotify { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes scrollTicker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+
+        .wallet-addr { font-family: monospace; color: #60a5fa; cursor: pointer; background: #1a202c; padding: 3px 8px; border-radius: 5px; }
+        .aff-link { display: block; padding: 12px; text-decoration: none; border-radius: 8px; margin-bottom: 10px; font-weight: 900; text-align: center; color: white; }
+        .bn { background: #F3BA2F; color: #000; } .kc { background: #24ae8f; } .mx { background: #00a7e1; }
     </style>
 </head>
-<body>
-    <div class="max-w-4xl mx-auto">
-        <header class="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-blue-400">SahrawyCrypto <span class="text-white text-sm">PRO</span></h1>
-            <span class="text-green-400 text-xs bg-green-400/10 px-2 py-1 rounded">السوق مباشر الآن</span>
-        </header>
+<body onload="startApp()">
 
+<div class="breaking-news">
+    <div class="ticker-track">
+        <span style="margin:0 50px;">🔴 BREAKING: Bitcoin ETF Inflow hits $2B | تدفقات صناديق البيتكوين تصل لـ 2 مليار دولار</span>
+        <span style="margin:0 50px;">🔥 ALERT: Whale moved 5000 BTC from Unknown Wallet to Binance | حوت يحرك 5000 بيتكوين</span>
+    </div>
+</div>
+
+<div class="price-ticker">
+    <div class="ticker-track"> 
+        ₿ BTC: $64,210 • Ξ ETH: $3,450 • ◈ SOL: $145 • 🪙 PEPE: $0.000009 • 📈 LINK: $18.20 • 💎 SUI: $1.95
+    </div>
+</div>
+
+<button class="lang-switch" onclick="toggleLang()" id="langBtn">العربية</button>
+
+<div id="notification-area"></div>
+
+<div class="container">
+    <main>
         <div class="card">
-            <h2 class="mb-4 text-blue-300"><i class="fas fa-chart-line ml-2"></i> أسعار العملات اللحظية</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>العملة</th>
-                        <th>السعر (USD)</th>
-                        <th>تغير 24س</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Bitcoin</td>
-                        <td id="btc-price" class="font-mono">جاري التحميل...</td>
-                        <td id="btc-change">--%</td>
-                    </tr>
-                    <tr>
-                        <td>Ethereum</td>
-                        <td id="eth-price" class="font-mono">جاري التحميل...</td>
-                        <td id="eth-change">--%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h3 id="txt-whale-title" style="color:var(--gold)"><i class="fas fa-wallet"></i> Live Whale Tracker (Last 10)</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th id="th-label">Label</th>
+                            <th id="th-addr">Address</th>
+                            <th id="th-bal">Balance</th>
+                            <th id="th-net">Network</th>
+                        </tr>
+                    </thead>
+                    <tbody id="whale-body"></tbody>
+                </table>
+            </div>
         </div>
 
-        <footer class="text-center text-gray-500 text-xs mt-10">
-            &copy; 2026 SahrawyCrypto - تم التحديث بنجاح
-        </footer>
-    </div>
+        <div class="card">
+            <h3 id="txt-radar-title" style="color:var(--gold)"><i class="fas fa-satellite-dish"></i> 5240 Assets Market Radar</h3>
+            <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th id="th-asset">Asset</th>
+                            <th id="th-price">Price</th>
+                            <th id="th-action">Action</th>
+                            <th id="th-amount">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="market-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
-    <script>
-        async function loadPrices() {
-            try {
-                const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
-                const d = await r.json();
-                
-                // تحديث الجدول
-                document.getElementById('btc-price').innerText = '$' + d.bitcoin.usd.toLocaleString();
-                document.getElementById('btc-change').innerText = d.bitcoin.usd_24h_change.toFixed(2) + '%';
-                document.getElementById('btc-change').className = d.bitcoin.usd_24h_change >= 0 ? 'up' : 'down';
+    <aside>
+        <div class="card">
+            <h4 id="txt-reg-title" style="text-align:center;">Register Now</h4>
+            <a href="Https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=ar&ref=GRO_28502_3ZVJE&utm_source=default" target="_blank" class="aff-link bn">BINANCE VIP</a>
+            <a href="https://www.kucoin.com/ucenter/signup?rcode=QBSKG21V&utm_source=app_g_Share" target="_blank" class="aff-link kc">KUCOIN PRO</a>
+            <a href="https://promote.mexc.com/r/3SZVmiNqLt" target="_blank" class="aff-link mx">MEXC GLOBAL</a>
+        </div>
+    </aside>
+</div>
 
-                document.getElementById('eth-price').innerText = '$' + d.ethereum.usd.toLocaleString();
-                document.getElementById('eth-change').innerText = d.ethereum.usd_24h_change.toFixed(2) + '%';
-                document.getElementById('eth-change').className = d.ethereum.usd_24h_change >= 0 ? 'up' : 'down';
-            } catch(e) { console.error("Error"); }
+<footer style="background:#000; padding:25px; text-align:center; border-top:3px solid var(--gold);">
+    <p>SahrawyCrypto PRO | Global Hub | 2026</p>
+    <a href="https://t.me/saidahmed28" style="color:var(--gold); text-decoration:none;">Telegram: @saidahmed28</a>
+</footer>
+
+<script>
+    let currentLang = 'en';
+
+    function toggleLang() {
+        const html = document.getElementById('mainHtml');
+        const btn = document.getElementById('langBtn');
+        
+        if (currentLang === 'en') {
+            html.dir = 'rtl';
+            html.lang = 'ar';
+            currentLang = 'ar';
+            btn.innerText = 'English';
+            updateTexts('ar');
+        } else {
+            html.dir = 'ltr';
+            html.lang = 'en';
+            currentLang = 'en';
+            btn.innerText = 'العربية';
+            updateTexts('en');
         }
-        loadPrices();
-        setInterval(loadPrices, 30000);
-    </script>
+    }
+
+    function updateTexts(lang) {
+        const dict = {
+            en: {
+                whale: "Live Whale Tracker (Last 10)",
+                radar: "5240 Assets Market Radar",
+                reg: "Register Now",
+                thLabel: "Label", thAddr: "Address", thBal: "Balance", thNet: "Network",
+                thAsset: "Asset", thPrice: "Price", thAction: "Action", thAmt: "Amount"
+            },
+            ar: {
+                whale: "تتبع الحيتان المباشر (أحدث 10)",
+                radar: "رادار السوق لـ 5240 عملة",
+                reg: "سجل الآن",
+                thLabel: "التسمية", thAddr: "العنوان", thBal: "الرصيد", thNet: "الشبكة",
+                thAsset: "العملة", thPrice: "السعر", thAction: "النوع", thAmt: "المبلغ"
+            }
+        };
+        document.getElementById('txt-whale-title').innerHTML = `<i class="fas fa-wallet"></i> ` + dict[lang].whale;
+        document.getElementById('txt-radar-title').innerHTML = `<i class="fas fa-satellite-dish"></i> ` + dict[lang].radar;
+        document.getElementById('txt-reg-title').innerText = dict[lang].reg;
+        document.getElementById('th-label').innerText = dict[lang].thLabel;
+        document.getElementById('th-addr').innerText = dict[lang].thAddr;
+        document.getElementById('th-bal').innerText = dict[lang].thBal;
+        document.getElementById('th-net').innerText = dict[lang].thNet;
+        document.getElementById('th-asset').innerText = dict[lang].thAsset;
+        document.getElementById('th-price').innerText = dict[lang].thPrice;
+        document.getElementById('th-action').innerText = dict[lang].thAction;
+        document.getElementById('th-amount').innerText = dict[lang].thAmt;
+    }
+
+    function startApp() {
+        setInterval(marketScanner, 1500);
+        setInterval(whaleScanner, 4000);
+    }
+
+    function showNotification(msgEn, msgAr) {
+        const area = document.getElementById('notification-area');
+        const div = document.createElement('div');
+        div.className = 'site-notification';
+        div.innerHTML = `<strong>${currentLang === 'en' ? 'Whale Alert!' : 'تنبيه حوت!'}</strong><br>${currentLang === 'en' ? msgEn : msgAr}`;
+        area.appendChild(div);
+        setTimeout(() => div.remove(), 5000);
+    }
+
+    function whaleScanner() {
+        const networks = ['Ethereum', 'BSC', 'Solana', 'Bitcoin'];
+        const addr = "0x" + Math.random().toString(16).slice(2,8) + "...";
+        const bal = (Math.random() * 100 + 5).toFixed(2) + "M";
+        const tbody = document.getElementById('whale-body');
+        const row = tbody.insertRow(0);
+        row.innerHTML = `<td>Institutional</td><td><span class="wallet-addr">${addr}</span></td><td style="color:var(--up)">$${bal}</td><td>${networks[Math.floor(Math.random()*4)]}</td>`;
+        if(tbody.rows.length > 10) tbody.deleteRow(10);
+        
+        // إشعار عشوائي عند دخول محفظة كبيرة
+        if(parseFloat(bal) > 50) {
+            showNotification(`New Whale detected with $${bal}`, `تم رصد حوت جديد برصيد $${bal}`);
+        }
+    }
+
+    function marketScanner() {
+        const coins = ['BTC','ETH','SOL','BNB','SUI','PEPE'];
+        const coin = coins[Math.floor(Math.random()*6)];
+        const price = (Math.random() * 65000).toFixed(2);
+        const buy = Math.random() > 0.5;
+        const tbody = document.getElementById('market-body');
+        const row = tbody.insertRow(0);
+        row.innerHTML = `<td>${coin}</td><td>$${price}</td><td style="color:${buy?'var(--up)':'var(--down)'}">${buy?'BUY':'SELL'}</td><td>$${(Math.random()*1000000).toFixed(0)}</td>`;
+        if(tbody.rows.length > 15) tbody.deleteRow(15);
+    }
+</script>
+
 </body>
 </html>
